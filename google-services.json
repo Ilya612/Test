@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "593188487007",
-    "project_id": "api-23-339912",
-    "storage_bucket": "api-23-339912.appspot.com"
+    "project_number": "357219268152",
+    "project_id": "onimssity",
+    "storage_bucket": "onimssity.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:593188487007:android:0a9198fbe0869fcf2c40ea",
+        "mobilesdk_app_id": "1:357219268152:android:c6b825e89177ac026d58cd",
         "android_client_info": {
-          "package_name": "com.ilyafffff.myapp"
+          "package_name": "cittopn.betcity"
         }
       },
       "oauth_client": [
         {
-          "client_id": "593188487007-7ak9mrks5f7j7ukv0p54egvpstak872e.apps.googleusercontent.com",
+          "client_id": "357219268152-n1qneapmd97qjhmark87eesluarp4qjk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDza-f98qi1yI_-pN9a46jdD0sQAqVeZ7Y"
+          "current_key": "AIzaSyDbfnLYr0v-ZOxOqfzMyFsgUPQJzNHdLDg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "593188487007-7ak9mrks5f7j7ukv0p54egvpstak872e.apps.googleusercontent.com",
+              "client_id": "357219268152-n1qneapmd97qjhmark87eesluarp4qjk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

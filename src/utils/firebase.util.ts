@@ -4,10 +4,34 @@ import * as Device from "expo-device";
 import { defaultRemoteConfig, FETCH_INTERVAL } from "../configs/firebaseConfig";
 
 class FireBase {
+  async testOne() {
+    return await remoteConfig()
+      .setDefaults(defaultRemoteConfig)
+      .then(() => remoteConfig().fetchAndActivate())
+      .then((fetchedRemotely) => {
+        if (fetchedRemotely) {
+          console.log("Configs were retrieved from the backend and activated.");
+        } else {
+          console.log(
+            "No configs were fetched from the backend, and the local configs were already activated"
+          );
+        }
+        return remoteConfig().getAll();
+      })
+      .then((snapshot) => {
+        console.log(snapshot);
+        return snapshot.url.asString();
+      })
+      .catch((error) => {
+        console.log(error);
+        return error?.message;
+      });
+  }
   async fetchRemoteConfig() {
-    remoteConfig().setDefaults(defaultRemoteConfig);
-    const fetch = remoteConfig().fetch(FETCH_INTERVAL);
-    return await fetch
+    await remoteConfig().setDefaults(defaultRemoteConfig);
+    //  const fetch = remoteConfig().fetch(FETCH_INTERVAL);
+    return await remoteConfig()
+      .fetch(FETCH_INTERVAL)
       .then(() => {
         remoteConfig().fetchAndActivate();
       })
@@ -20,7 +44,6 @@ class FireBase {
       })
       .catch((error) => {
         console.log(error);
-
         return error?.message;
       });
   }

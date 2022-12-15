@@ -10,6 +10,7 @@ interface CustomWebViewProps {
 }
 
 export const CustomWebView = ({ url }: CustomWebViewProps) => {
+  const [initial, setInitial] = useState<boolean>(false);
   const [cookies, setCookies] = useState<string | null>(null);
   const [currentURI, setURI] = useState<string | null>(url);
   const webviewRef = useRef<WebView | null>(null);
@@ -23,6 +24,8 @@ export const CustomWebView = ({ url }: CustomWebViewProps) => {
   const getCookies = async () => {
     const res = await storageService.getWebViewCookies();
     setCookies(res);
+    console.log("////////////////////");
+    setInitial(true);
   };
   const setCookiesToStorage = async (value: string) => {
     if (value !== cookies)
@@ -31,6 +34,7 @@ export const CustomWebView = ({ url }: CustomWebViewProps) => {
 
   useFocusEffect(
     useCallback(() => {
+      console.log(url);
       getCookies();
       BackHandler.addEventListener("hardwareBackPress", backButtonHandler);
       return () => {
@@ -39,19 +43,22 @@ export const CustomWebView = ({ url }: CustomWebViewProps) => {
     }, [])
   );
   const CHECK_COOKIE: string = `
-  window.document.cookie = "${cookies}"
   ReactNativeWebView.postMessage(document.cookie);
+  window.document.cookie = "${cookies}";
   true;
 `;
 
   const changeUri = (value: string) => {
-    if (value !== currentURI) setURI(value);
-  };
-  const injectable = () => {
-    if (webviewRef.current) {
-      webviewRef.current.injectJavaScript(CHECK_COOKIE);
+    if (value !== currentURI) {
+      console.log("меняю урлу");
+      setURI(value);
     }
   };
+
+  const injectable = () => {
+    if (webviewRef.current) webviewRef.current.injectJavaScript(CHECK_COOKIE);
+  };
+
   useFocusEffect(
     useCallback(() => {
       injectable();
@@ -65,7 +72,7 @@ export const CustomWebView = ({ url }: CustomWebViewProps) => {
   return (
     <>
       <>
-        {cookies && (
+        {url && initial && (
           <WebView
             onMessage={onMessage}
             ref={(value) => (webviewRef.current = value)}
@@ -73,11 +80,10 @@ export const CustomWebView = ({ url }: CustomWebViewProps) => {
             thirdPartyCookiesEnabled={true}
             onLoadProgress={({ nativeEvent }) => changeUri(nativeEvent.url)}
             source={{
-              uri: currentURI ? currentURI : "",
-              headers: {
-                cookie: "asdf=1=asdf; coofffkie=2=dfasdfdas;",
-              },
+              uri: url,
+              Cookies: cookies,
             }}
+            injectedJavaScriptBeforeContentLoaded={CHECK_COOKIE}
             javaScriptEnabled={true}
           />
         )}

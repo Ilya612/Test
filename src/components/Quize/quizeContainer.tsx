@@ -7,6 +7,7 @@ import {
   useToast,
   View,
   VStack,
+  Text,
 } from "native-base";
 import React, { useCallback, useState } from "react";
 import quizeService from "../../services/quize.service";
@@ -56,7 +57,7 @@ export const QuizeContainer = () => {
       render: () => {
         return (
           <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>
-            Success
+            <Text color="white">Success</Text>
           </Box>
         );
       },
@@ -68,7 +69,9 @@ export const QuizeContainer = () => {
       render: () => {
         return (
           <Box bg="error.500" px="2" py="1" rounded="sm" mb={5}>
-            {isVariantNull ? "Choose one variant" : "Wrong answer"}
+            <Text color={"white"}>
+              {isVariantNull ? "Choose one variant" : "Wrong answer"}
+            </Text>
           </Box>
         );
       },
@@ -79,61 +82,60 @@ export const QuizeContainer = () => {
   return (
     <>
       <>
-        <VStack
-          px={5}
-          bg={"gray.800"}
-          alignContent={"center"}
-          flex={1}
-          h={"100%"}
-          w={"100%"}
-        >
-          {data && data.length > stepNumber && (
-            <Quize
-              variant={variant}
-              result={result}
-              setAnswer={(text) => {
-                setVariant(text);
-                setResult(null);
-              }}
-              {...data[stepNumber]}
-            />
-          )}
-
-          {data && data.length - 1 < stepNumber && (
-            <Center h={100}>
-              <Box>Success</Box>
-            </Center>
-          )}
-          {!data && isLoading && (
-            <View mt={3} h={"50%"}>
-              <Skeleton borderRadius={10} h={"10%"} />
-              <Skeleton mt={3} borderRadius={10} h={"80%"} />
-            </View>
-          )}
-
-          <View mt={4} alignItems={"center"}>
-            <View
-              alignItems={"center"}
-              justifyContent={"space-between"}
-              flexDirection={"row"}
-              w={"70%"}
-            >
-              {stepNumber > 0 && data && data.length > stepNumber && (
-                <Button
-                  m={"auto"}
-                  onPress={() => setStepNumber((prevState) => --prevState)}
-                  variant={"outline"}
-                >
-                  Back
-                </Button>
-              )}
+        <VStack px={5} bg={"gray.800"} alignContent={"center"} flex={1}>
+          <Center h={"90%"}>
+            <View>
               {data && data.length > stepNumber && (
-                <Button onPress={Next} m={"auto"} variant={"solid"}>
-                  Next
-                </Button>
+                <Quize
+                  variant={variant}
+                  result={result}
+                  setAnswer={(text) => {
+                    setVariant(text);
+                    setResult(null);
+                  }}
+                  {...data[stepNumber]}
+                />
               )}
+
+              {data && data.length - 1 < stepNumber && (
+                <Center>
+                  <Box h={100}>
+                    <Text color={"white"}></Text>
+                  </Box>
+                </Center>
+              )}
+              {!data && isLoading && (
+                <View mt={3} h={"50%"}>
+                  <Skeleton borderRadius={10} h={"10%"} />
+                  <Skeleton mt={3} borderRadius={10} h={"80%"} />
+                </View>
+              )}
+
+              <View mt={4} alignItems={"center"}>
+                <View
+                  alignItems={"center"}
+                  justifyContent={"space-between"}
+                  flexDirection={"row"}
+                  w={"70%"}
+                >
+                  {stepNumber > 0 && data && data.length > stepNumber && (
+                    <Button
+                      m={"auto"}
+                      onPress={() => setStepNumber((prevState) => --prevState)}
+                      variant={"outline"}
+                    >
+                      Back
+                    </Button>
+                  )}
+                  {data && data.length > stepNumber && (
+                    <Button onPress={Next} m={"auto"} variant={"solid"}>
+                      Next
+                    </Button>
+                  )}
+                </View>
+              </View>
             </View>
-          </View>
+          </Center>
         </VStack>
       </>
     </>

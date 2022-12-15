@@ -1,4 +1,4 @@
-package com.ilyafffff.myapp.newarchitecture;
+package cittopn.betcity.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -20,9 +20,9 @@ import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.ilyafffff.myapp.BuildConfig;
-import com.ilyafffff.myapp.newarchitecture.components.MainComponentsRegistry;
-import com.ilyafffff.myapp.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import cittopn.betcity.BuildConfig;
+import cittopn.betcity.newarchitecture.components.MainComponentsRegistry;
+import cittopn.betcity.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

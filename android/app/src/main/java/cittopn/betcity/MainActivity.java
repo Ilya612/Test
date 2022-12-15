@@ -1,4 +1,4 @@
-package com.ilyafffff.myapp;
+package cittopn.betcity;
 
 import android.os.Build;
 import android.os.Bundle;

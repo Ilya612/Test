@@ -1,7 +1,7 @@
 interface ConfigRemoteUrl {
   [key: string]: string | number | boolean;
 }
-export const FETCH_INTERVAL = 43200;
+export const FETCH_INTERVAL = 0;
 
 export const defaultRemoteConfig: ConfigRemoteUrl = {
   url: "",

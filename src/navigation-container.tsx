@@ -38,7 +38,7 @@ export default function Navigation() {
       setIsLoading(false);
       return;
     }
-    const res = await firebaseUtil.fetchRemoteConfig();
+    const res = await firebaseUtil.testOne();
 
     const isItErrorMessage = firebaseUtil.checkIsItErrorString(res);
     //  console.log(`res: ${res}`);
@@ -82,7 +82,7 @@ export default function Navigation() {
                 w={"100%"}
               >
                 <Center mt={"40%"}>
-                  <Text>{showError}</Text>
+                  <Text color={"white"}>{showError}</Text>
                 </Center>
               </VStack>
             </>

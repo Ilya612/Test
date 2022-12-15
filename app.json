@@ -1,12 +1,29 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "Betcity",
+    "slug": "betcity",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "plugins": ["@react-native-firebase/app"],
+    "plugins": [
+      "@react-native-firebase/app",
+      "expo-build-properties",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 31,
+            "targetSdkVersion": 31,
+            "buildToolsVersion": "31.0.0",
+            "minSdkVersion": 21
+          },
+          "ios": {
+            "deploymentTarget": "13.0"
+          }
+        }
+      ]
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -15,7 +32,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -24,7 +43,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.ilyafffff.myapp",
+      "package": "cittopn.betcity",
       "googleServicesFile": "./google-services.json"
     },
     "web": {
@@ -32,7 +51,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "6c29436c-890b-4380-a61c-0aa579053671"
+        "projectId": "38aa61ef-1e36-40a6-9216-2a4fc77a790f"
       }
     }
   }

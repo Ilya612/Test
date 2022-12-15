@@ -20,7 +20,7 @@ export const Quize = ({
       <>
         <View>
           <View m={2}>
-            <Text fontSize={25} textAlign={"center"}>
+            <Text color={"white"} fontSize={25} textAlign={"center"}>
               {title}
             </Text>
           </View>

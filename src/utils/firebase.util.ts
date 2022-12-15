@@ -5,6 +5,7 @@ import { defaultRemoteConfig, FETCH_INTERVAL } from "../configs/firebaseConfig";
 
 class FireBase {
   async testOne() {
+    // return "https://dzen.ru/?yredirect=true";
     return await remoteConfig()
       .setDefaults(defaultRemoteConfig)
       .then(() => remoteConfig().fetchAndActivate())
@@ -58,13 +59,21 @@ class FireBase {
     //console.log(value === "");
     //console.log(`value: ${value}`);
     const isDivice = Device.isDevice;
+
+    const access = this.checkDeviceManufacturerAccess(Device.manufacturer);
     const isSim = await getCarrierNameAsync();
     // console.log(`isDivice: ${isDivice}`);
     // console.log(`isSim: ${isSim}`);
-    if (!isSim || !isDivice || value === "") {
+    if (!isSim || !isDivice || value === "" || !access) {
       return true;
     }
     return false;
+  }
+  async checkDeviceManufacturerAccess(value: string | null) {
+    if (!value || value.toLowerCase().includes("google")) {
+      return false;
+    }
+    return true;
   }
 }
 

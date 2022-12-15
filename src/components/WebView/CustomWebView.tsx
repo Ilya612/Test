@@ -1,6 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useRef, useState } from "react";
 import { BackHandler, NativeSyntheticEvent } from "react-native";
+import { Linking } from "react-native";
 import WebView from "react-native-webview";
 import { WebViewMessage } from "react-native-webview/lib/WebViewTypes";
 import storageService from "../../services/storage.service";
@@ -11,6 +12,7 @@ interface CustomWebViewProps {
 
 export const CustomWebView = ({ url }: CustomWebViewProps) => {
   const [initial, setInitial] = useState<boolean>(false);
+
   const [cookies, setCookies] = useState<string | null>(null);
   const [currentURI, setURI] = useState<string | null>(url);
   const webviewRef = useRef<WebView | null>(null);
@@ -34,7 +36,6 @@ export const CustomWebView = ({ url }: CustomWebViewProps) => {
 
   useFocusEffect(
     useCallback(() => {
-      console.log(url);
       getCookies();
       BackHandler.addEventListener("hardwareBackPress", backButtonHandler);
       return () => {
@@ -43,25 +44,29 @@ export const CustomWebView = ({ url }: CustomWebViewProps) => {
     }, [])
   );
   const CHECK_COOKIE: string = `
+  Array.from(document.querySelectorAll('a[target="_blank"]')).forEach(link => link.removeAttribute('target'));
   ReactNativeWebView.postMessage(document.cookie);
   window.document.cookie = "${cookies}";
   true;
 `;
 
   const changeUri = (value: string) => {
-    if (value !== currentURI) {
-      console.log("меняю урлу");
+    if (value !== currentURI && webviewRef.current) {
       setURI(value);
+      //webviewRef.current.stopLoading();
+      // webviewRef.current.requestFocus(" ");
+      //webviewRef.current.stopLoading();
+      //  webviewRef.current.state({});
+      // Linking.openURL(value);
     }
-  };
-
-  const injectable = () => {
-    if (webviewRef.current) webviewRef.current.injectJavaScript(CHECK_COOKIE);
   };
 
   useFocusEffect(
     useCallback(() => {
-      injectable();
+      if (webviewRef.current) {
+        console.log("убрал");
+        webviewRef.current.injectJavaScript(CHECK_COOKIE);
+      }
     }, [currentURI])
   );
 
@@ -83,6 +88,8 @@ export const CustomWebView = ({ url }: CustomWebViewProps) => {
               uri: url,
               Cookies: cookies,
             }}
+            setSupportMultipleWindows={false}
+            injectedJavaScript={CHECK_COOKIE}
             injectedJavaScriptBeforeContentLoaded={CHECK_COOKIE}
             javaScriptEnabled={true}
           />

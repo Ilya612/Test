@@ -20,7 +20,7 @@ export default function Navigation() {
   const getData = useCallback(async () => {
     setIsLoading(true);
     await storageService.develop();
-    const link = await storageService.getUrlFromStorage();
+    const link = null; //await storageService.getUrlFromStorage();
     // console.log("/////////////////");
     // console.log(`link: ${link}`);
 

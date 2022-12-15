@@ -8,6 +8,7 @@ import storageService from "./services/storage.service";
 import utilService from "./services/util.service";
 import { ConnectionPermission } from "./components/ConnectionPermission";
 import { CustomWebView } from "./components/WebView/CustomWebView";
+import { QuizeContainer } from "./components/Quize/quizeContainer";
 
 const Stack = createStackNavigator();
 
@@ -20,7 +21,7 @@ export default function Navigation() {
   const getData = useCallback(async () => {
     setIsLoading(true);
     await storageService.develop();
-    const link = null; //await storageService.getUrlFromStorage();
+    const link = await storageService.getUrlFromStorage();
     // console.log("/////////////////");
     // console.log(`link: ${link}`);
 
@@ -105,7 +106,7 @@ export default function Navigation() {
               initialRouteName={isPlugOpen ? "a" : "b"}
               screenOptions={{ headerShown: false }}
             >
-              <Stack.Screen name="a">{() => <Main />}</Stack.Screen>
+              <Stack.Screen name="a">{() => <QuizeContainer />}</Stack.Screen>
               <Stack.Screen name="b">
                 {() => <CustomWebView url={url} />}
               </Stack.Screen>

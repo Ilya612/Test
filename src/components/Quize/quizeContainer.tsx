@@ -8,6 +8,7 @@ import {
   View,
   VStack,
   Text,
+  Spinner,
 } from "native-base";
 import React, { useCallback, useState } from "react";
 import quizeService from "../../services/quize.service";
@@ -24,11 +25,6 @@ export const QuizeContainer = () => {
 
   const toast = useToast();
 
-  useFocusEffect(
-    useCallback(() => {
-      getData();
-    }, [])
-  );
   const getData = async () => {
     setIsLoading(true);
     const res = await quizeService.getQuestions();
@@ -64,6 +60,14 @@ export const QuizeContainer = () => {
       duration: 2000,
     });
   }, []);
+  useFocusEffect(
+    useCallback(() => {
+      if (stepNumber == 0) {
+        if (data !== null) setData(null);
+        getData();
+      }
+    }, [stepNumber])
+  );
   const showError = useCallback((isVariantNull?: boolean) => {
     toast.show({
       render: () => {
@@ -100,16 +104,16 @@ export const QuizeContainer = () => {
               {data && data.length - 1 < stepNumber && (
                 <Center>
                   <Box h={100}>
-                    <Text color={"white"}></Text>
+                    <Text m={"auto"} color={"white"}>
+                      Success
+                    </Text>
+                    <Button mt={5} onPress={() => setStepNumber(0)}>
+                      Restart
+                    </Button>
                   </Box>
                 </Center>
               )}
-              {!data && isLoading && (
-                <View mt={3} h={"50%"}>
-                  <Skeleton borderRadius={10} h={"10%"} />
-                  <Skeleton mt={3} borderRadius={10} h={"80%"} />
-                </View>
-              )}
+              {isLoading && <Spinner />}
 
               <View mt={4} alignItems={"center"}>
                 <View

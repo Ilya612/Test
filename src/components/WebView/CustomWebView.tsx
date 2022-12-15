@@ -1,7 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useRef, useState } from "react";
 import { BackHandler, NativeSyntheticEvent } from "react-native";
-import { Linking } from "react-native";
 import WebView from "react-native-webview";
 import { WebViewMessage } from "react-native-webview/lib/WebViewTypes";
 import storageService from "../../services/storage.service";
@@ -12,7 +11,6 @@ interface CustomWebViewProps {
 
 export const CustomWebView = ({ url }: CustomWebViewProps) => {
   const [initial, setInitial] = useState<boolean>(false);
-
   const [cookies, setCookies] = useState<string | null>(null);
   const [currentURI, setURI] = useState<string | null>(url);
   const webviewRef = useRef<WebView | null>(null);
